@@ -1,0 +1,48 @@
+import {useState, useRef, useEffect} from 'react';
+import Image from 'react-bootstrap/Image';
+import Button  from 'react-bootstrap/Button';
+import { BsFillTrashFill, BsPlusLg } from 'react-icons/bs';
+import { FaMinus } from 'react-icons/fa';
+
+function CartItem (props) {
+
+    const [quantity, setQuantity] = useState(1);
+    const [totalCost, setTotal] = useState(props.price);
+    const total = (Number(props.price) * Number(quantity)).toFixed(2);
+
+
+    function addOne () {
+        setQuantity(quantity+1);
+    }
+
+    function minusOne() {
+        if(quantity > 0){
+            setQuantity(quantity-1);
+        }
+    }
+
+    useEffect(() => {
+        setTotal(total);
+    }, [quantity])
+
+    return <>
+    <div className='container'>
+        <div className='row align-items-start'>
+            <div className='col-4'>
+                <Image className='productImage' src={props.image} rounded></Image>
+            </div>
+            <div className='col-5'>
+                <p className='productName'>{props.name}</p>
+                <p className='productServing'>{props.serving}</p>
+                <Button onClick={minusOne} variant="outline-primary">-</Button> {quantity} <Button variant="outline-primary" onClick={addOne}>+</Button>
+            </div>
+            <div className='col-2'>
+                <Button variant="danger"><BsFillTrashFill /></Button>
+                <p className='productPrice align-self-stretch'>{'$' + totalCost}</p>
+            </div>
+        </div>
+    </div>
+    </>
+}
+
+export default CartItem;

@@ -10,9 +10,6 @@ function Progress (props) {
     const percentage = (Number(props.price) / Number(props.budget) * 100).toFixed(0);
     const label = `${props.price} / ${props.budget}`;
 
-
-    console.log(bar);
-
     useEffect(()=> {
         setBar(percentage);
     },[]);

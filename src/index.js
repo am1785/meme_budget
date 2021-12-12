@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import Navigator from './Navigator';
 import {Helmet} from "react-helmet";
 import Progress from './ProgressBar';
+import CartList from './CartList';
 
 ReactDOM.render(<>
   <header>
@@ -16,6 +17,7 @@ ReactDOM.render(<>
   <main>
     <Navigator />
     <Progress price="15" budget="20"/>
+    <CartList />
   </main>
 </>, document.getElementById('root')
 );

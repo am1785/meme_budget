@@ -25,3 +25,8 @@ a.nav-link.active{
   background-color: #349C90 !important;
   border-radius: 0%;
 }
+
+img.productImage.rounded {
+  max-height: 120px;
+  max-width: 120px;
+}
