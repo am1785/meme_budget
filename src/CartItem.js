@@ -43,7 +43,6 @@ function CartItem (props) {
             <div className='col-2'>
                 <Button onClick={props.onDelete} variant="danger"><BsFillTrashFill /></Button>
                 <p className='productPrice align-self-stretch'>{'$' + totalCost}</p>
-                <p>{props.quantity}</p>
             </div>
         </div>
     </div>

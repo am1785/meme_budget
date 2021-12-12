@@ -5,15 +5,17 @@ import Button  from 'react-bootstrap/Button';
 import CartItem from './CartItem';
 
 function CartList() {
-    const [quantities, SetQuantities] = useState([1,1,1]); // array that tracks all quantities of items, in the order provided
+    const [quantities, SetQuantities] = useState([1,1,5]); // array that tracks all quantities of items, in the order provided
     const item_quantities = quantities;
-
 
     const strawberry_demo = <CartItem key="0" name="Organic Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(0)} quantity={quantities[0]} onMinus={()=>onMinus(0)} onAdd={()=>onAdd(0)}/>
     const strawberry_demo2 = <CartItem key="1" name="Rural Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(1)} quantity={quantities[1]} onMinus={()=>onMinus(1)} onAdd={()=>onAdd(1)}/>
     const strawberry_demo3 = <CartItem key="2" name="Natural Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(2)} quantity={quantities[2]} onMinus={()=>onMinus(2)} onAdd={()=>onAdd(2)}/>
 
+    var ALL_ITEMS = [strawberry_demo, strawberry_demo2, strawberry_demo3]; // global list that contains info on all items
+
     const [output, SetOutput] = useState([strawberry_demo, strawberry_demo2, strawberry_demo3]);
+    const output_items = output;
 
     var TOTAL = 0;
     for(const item of output){
@@ -22,29 +24,58 @@ function CartList() {
 
     const [totalPrice, setTotalPrice] = useState(TOTAL);
 
+    console.log(quantities);
 
     function onMinus(idx){
         // subtract the quantity of the item stored at index idx
-        const prev_item = output[idx];
-        if(prev_item.props.quantity === 0){
-            return
+        const ref_item = ALL_ITEMS[idx];
+        if(quantities[idx] === 1){
+            item_quantities[idx] = 0;
+            SetQuantities(item_quantities);
+            console.log(quantities);
+
+            let offset = 0;
+            for(let i = 0; i < item_quantities.slice(0,idx).length; i++){
+                if((item_quantities[i]) === 0) {
+                    console.log('found a 0!');
+                    offset ++;
+                }
+            }
+            idx = idx - offset;
+
+            let new_output = output;
+            new_output.splice(idx, 1);
+            SetOutput(new_output);
+            console.log(output);
         }
         else {
         const new_quantity = Number(item_quantities[idx]) - 1;
-        const new_item = <CartItem key={String(idx)} name={prev_item.props.name} image={prev_item.props.image} serving={prev_item.props.serving} price={prev_item.props.price} onDelete={prev_item.props.onDelete} quantity={new_quantity} onMinus={prev_item.props.onMinus} onAdd={prev_item.onAdd}/>;
+        console.log(new_quantity);
+        const new_item = <CartItem key={String(idx)} name={ref_item.props.name} image={ref_item.props.image} serving={ref_item.props.serving} price={ref_item.props.price} onDelete={ref_item.props.onDelete} quantity={new_quantity} onMinus={ref_item.props.onMinus} onAdd={ref_item.onAdd}/>;
         item_quantities[idx] = new_quantity;
         SetQuantities(item_quantities);
+        console.log(quantities);
+        let offset = 0;
+        for(let i = 0; i < item_quantities.slice(0,idx).length; i++){
+            console.log(item_quantities[i]);
+            if((item_quantities[i]) === 0) {
+                console.log('found a 0!');
+                offset ++;
+            }
+        }
+        idx = idx - offset;
         const new_output = output;
         new_output[idx] = new_item;
         SetOutput(new_output);
+        console.log(output);
         }
     }
 
     function onAdd(idx){
         // subtract the quantity of the item stored at index idx
-        const prev_item = output[idx];
+        const ref_item = ALL_ITEMS[idx];
         const new_quantity = Number(item_quantities[idx]) + 1;
-        const new_item = <CartItem key={String(idx)} name={prev_item.props.name} image={prev_item.props.image} serving={prev_item.props.serving} price={prev_item.props.price} onDelete={prev_item.props.onDelete} quantity={new_quantity} onMinus={prev_item.props.onMinus} onAdd={prev_item.onAdd} />;
+        const new_item = <CartItem key={String(idx)} name={ref_item.props.name} image={ref_item.props.image} serving={ref_item.props.serving} price={ref_item.props.price} onDelete={ref_item.props.onDelete} quantity={new_quantity} onMinus={ref_item.props.onMinus} onAdd={ref_item.onAdd} />;
         item_quantities[idx] = new_quantity;
         SetQuantities(item_quantities);
         const new_output = output;
@@ -53,17 +84,17 @@ function CartList() {
         console.log(totalPrice);
     }
 
-    useEffect(()=> {
-    console.log("it changed!");
-    SetQuantities(item_quantities);
-    setTotalPrice(TOTAL);
-    }, []);
+    // useEffect(()=> {
+    // console.log("it changed!");
+    // SetQuantities(item_quantities);
+    // setTotalPrice(TOTAL);
+    // }, []);
 
     function deleteItem(idx){
         const items = output;
         console.log(items);
-        const new_output = items.splice(idx, 1);
-        SetOutput(new_output);
+        items.splice(idx, 1);
+        SetOutput(items);
     }
 
     return <>
