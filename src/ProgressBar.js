@@ -1,5 +1,8 @@
 import {useState, useEffect} from 'react';
+import Button  from 'react-bootstrap/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import { RiEdit2Fill } from 'react-icons/ri';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Progress (props) {
 
@@ -12,11 +15,20 @@ function Progress (props) {
 
     useEffect(()=> {
         setBar(percentage);
-        console.log(bar);
     },[]);
 
     return <>
-    <ProgressBar animated now={bar} label={label} />;
+    <h1>Meme Budget</h1>
+    <div className='container'>
+        <div className='row justify-content-evenly align-items-center'>
+            <div className='col-10'>
+                <ProgressBar animated now={bar} label={label} />
+            </div>
+            <div className='col-2 text-center'>
+                <Button variant="light"><RiEdit2Fill /></Button>
+            </div>
+        </div>
+    </div>
     </>
 
 }
