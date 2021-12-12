@@ -22,7 +22,12 @@ function CartItem (props) {
 
     useEffect(() => {
         setTotal(total);
-    }, [quantity])
+    }, [quantity]);
+
+
+    useEffect(() => {
+        setQuantity(quantity);
+    }, [quantity]);
 
     return <>
     <div className='container mt-2'>
@@ -33,11 +38,12 @@ function CartItem (props) {
             <div className='col-5'>
                 <p className='productName'>{props.name}</p>
                 <p className='productServing'>{props.serving}</p>
-                <Button onClick={minusOne} variant="outline-primary">-</Button> {quantity} <Button variant="outline-primary" onClick={addOne}>+</Button>
+                <Button onClick={()=> {minusOne(); props.onMinus();}} variant="outline-primary">-</Button> {quantity} <Button variant="outline-primary" onClick={()=> {addOne(); props.onAdd();}}>+</Button>
             </div>
             <div className='col-2'>
                 <Button onClick={props.onDelete} variant="danger"><BsFillTrashFill /></Button>
                 <p className='productPrice align-self-stretch'>{'$' + totalCost}</p>
+                <p>{props.quantity}</p>
             </div>
         </div>
     </div>

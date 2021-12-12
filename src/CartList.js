@@ -5,19 +5,59 @@ import Button  from 'react-bootstrap/Button';
 import CartItem from './CartItem';
 
 function CartList() {
-    const strawberry_demo = <CartItem key="0" name="Organic Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(0)}/>
-    const strawberry_demo2 = <CartItem key="1" name="Rural Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(1)}/>
-    const strawberry_demo3 = <CartItem key="2" name="Natural Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(2)}/>
+    const [quantities, SetQuantities] = useState([1,1,1]); // array that tracks all quantities of items, in the order provided
+    const item_quantities = quantities;
+
+
+    const strawberry_demo = <CartItem key="0" name="Organic Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(0)} quantity={quantities[0]} onMinus={()=>onMinus(0)} onAdd={()=>onAdd(0)}/>
+    const strawberry_demo2 = <CartItem key="1" name="Rural Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(1)} quantity={quantities[1]} onMinus={()=>onMinus(1)} onAdd={()=>onAdd(1)}/>
+    const strawberry_demo3 = <CartItem key="2" name="Natural Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(2)} quantity={quantities[2]} onMinus={()=>onMinus(2)} onAdd={()=>onAdd(2)}/>
 
     const [output, SetOutput] = useState([strawberry_demo, strawberry_demo2, strawberry_demo3]);
-    const num_items = output.length;
 
-    // for(let i = 0; i < output.length; i++) {
-    //     const item_name = output[i];
-    //     const idx = i;
-    //     const cartItem = <CartItem key={idx} name={item_name} image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem({idx})} />
-    //     cart_items.push(cartItem);
-    // }
+    var TOTAL = 0;
+    for(const item of output){
+        TOTAL += Number(item.props.price) * Number(item.props.quantity);
+    }
+
+    const [totalPrice, setTotalPrice] = useState(TOTAL);
+
+
+    function onMinus(idx){
+        // subtract the quantity of the item stored at index idx
+        const prev_item = output[idx];
+        if(prev_item.props.quantity === 0){
+            return
+        }
+        else {
+        const new_quantity = Number(item_quantities[idx]) - 1;
+        const new_item = <CartItem key={String(idx)} name={prev_item.props.name} image={prev_item.props.image} serving={prev_item.props.serving} price={prev_item.props.price} onDelete={prev_item.props.onDelete} quantity={new_quantity} onMinus={prev_item.props.onMinus} onAdd={prev_item.onAdd}/>;
+        item_quantities[idx] = new_quantity;
+        SetQuantities(item_quantities);
+        const new_output = output;
+        new_output[idx] = new_item;
+        SetOutput(new_output);
+        }
+    }
+
+    function onAdd(idx){
+        // subtract the quantity of the item stored at index idx
+        const prev_item = output[idx];
+        const new_quantity = Number(item_quantities[idx]) + 1;
+        const new_item = <CartItem key={String(idx)} name={prev_item.props.name} image={prev_item.props.image} serving={prev_item.props.serving} price={prev_item.props.price} onDelete={prev_item.props.onDelete} quantity={new_quantity} onMinus={prev_item.props.onMinus} onAdd={prev_item.onAdd} />;
+        item_quantities[idx] = new_quantity;
+        SetQuantities(item_quantities);
+        const new_output = output;
+        new_output[idx] = new_item;
+        SetOutput(new_output);
+        console.log(totalPrice);
+    }
+
+    useEffect(()=> {
+    console.log("it changed!");
+    SetQuantities(item_quantities);
+    setTotalPrice(TOTAL);
+    }, []);
 
     function deleteItem(idx){
         const items = output;
@@ -36,6 +76,10 @@ function CartList() {
             </div>
         </div>
         {output}
+        <div className='row justify-content-between'>
+            <h2 className='col text-center mh-4'>Subtotal</h2>
+            <p className='col text-center mh-4'>{totalPrice}</p>
+        </div>
     </div>
     </>
 }
