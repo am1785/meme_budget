@@ -1,8 +1,7 @@
 import {useState, useRef, useEffect} from 'react';
 import Image from 'react-bootstrap/Image';
 import Button  from 'react-bootstrap/Button';
-import { BsFillTrashFill, BsPlusLg } from 'react-icons/bs';
-import { FaMinus } from 'react-icons/fa';
+import { BsFillTrashFill } from 'react-icons/bs';
 
 function CartItem (props) {
 
@@ -37,7 +36,7 @@ function CartItem (props) {
                 <Button onClick={minusOne} variant="outline-primary">-</Button> {quantity} <Button variant="outline-primary" onClick={addOne}>+</Button>
             </div>
             <div className='col-2'>
-                <Button variant="danger"><BsFillTrashFill /></Button>
+                <Button onClick={props.onDelete} variant="danger"><BsFillTrashFill /></Button>
                 <p className='productPrice align-self-stretch'>{'$' + totalCost}</p>
             </div>
         </div>
