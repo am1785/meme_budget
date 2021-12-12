@@ -30,3 +30,7 @@ img.productImage.rounded {
   max-height: 120px;
   max-width: 120px;
 }
+
+main{
+  margin-bottom: 100px;
+}

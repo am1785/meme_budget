@@ -25,7 +25,7 @@ function CartItem (props) {
     }, [quantity])
 
     return <>
-    <div className='container'>
+    <div className='container mt-2'>
         <div className='row align-items-start'>
             <div className='col-4'>
                 <Image className='productImage' src={props.image} rounded></Image>
