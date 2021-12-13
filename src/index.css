@@ -12,7 +12,7 @@ code {
     monospace;
 }
 
-.fixed-bottom{
+.fixed-top{
   background-color: #FFF;
 }
 
@@ -33,4 +33,12 @@ img.productImage.rounded {
 
 main{
   margin-bottom: 100px;
+}
+
+h1#mainHeader{
+  margin-top: 100px !important;
+}
+
+#ScanIcon{
+  font-size: 50px;
 }

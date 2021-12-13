@@ -9,7 +9,6 @@ function CartItem (props) {
     const [totalCost, setTotal] = useState(props.price);
     const total = (Number(props.price) * Number(quantity)).toFixed(2);
 
-
     function addOne () {
         setQuantity(quantity+1);
     }
@@ -37,8 +36,9 @@ function CartItem (props) {
             </div>
             <div className='col-5'>
                 <p className='productName'>{props.name}</p>
+                <p className='productSerial'>SN: {props.serial}</p>
                 <p className='productServing'>{props.serving}</p>
-                <Button onClick={()=> {minusOne(); props.onMinus();}} variant="outline-primary">-</Button> {quantity} <Button variant="outline-primary" onClick={()=> {addOne(); props.onAdd();}}>+</Button>
+                {/* <Button onClick={()=> {minusOne(); props.onMinus();}} variant="outline-primary">-</Button> {quantity} <Button variant="outline-primary" onClick={()=> {addOne(); props.onAdd();}}>+</Button> */}
             </div>
             <div className='col-2'>
                 <Button onClick={props.onDelete} variant="danger"><BsFillTrashFill /></Button>

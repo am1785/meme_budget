@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BiScan } from 'react-icons/bi';
 import { BsPerson } from 'react-icons/bs';
 import { FaShoppingBag } from 'react-icons/fa';
+import { RiEdit2Fill } from 'react-icons/ri';
 
 function Navigator (){
 
@@ -33,11 +34,11 @@ return <>
 {/* <div className="fixed-top start-15">
     <h1>Meme Budget</h1>
 </div> */}
-<div className="fixed-bottom">
+<div className="fixed-top">
 <nav className="nav nav-pills nav-fill justify-content-around">
-  <a className={budgetIsActive ? 'nav-link active':'nav-link'} onClick={ToggleBudgetActive} href="#"><FaShoppingBag /></a>
-  <a className={scanIsActive ? 'nav-link active':'nav-link'} onClick={ToggleScanActive} href="#"><BiScan /></a>
-  <a className={checkIsActive ? 'nav-link active':'nav-link'} onClick={ToggleCheckActive} href="#"><BsPerson /></a>
+  <a className={budgetIsActive ? 'nav-link active':'nav-link'} onClick={ToggleBudgetActive} href="#Meme"><RiEdit2Fill /></a>
+  <a className={scanIsActive ? 'nav-link active':'nav-link'} onClick={ToggleScanActive} href="#Scan"><BiScan /></a>
+  <a className={checkIsActive ? 'nav-link active':'nav-link'} onClick={ToggleCheckActive} href="#MyCart"><FaShoppingBag /></a>
 </nav>
 </div>
 </>

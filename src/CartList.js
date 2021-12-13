@@ -5,12 +5,12 @@ import Button  from 'react-bootstrap/Button';
 import CartItem from './CartItem';
 
 function CartList() {
-    const [quantities, SetQuantities] = useState([1,1,5]); // array that tracks all quantities of items, in the order provided
+    const [quantities, SetQuantities] = useState([1,1,1]); // array that tracks all quantities of items, in the order provided
     const item_quantities = quantities;
 
-    const strawberry_demo = <CartItem key="0" name="Organic Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(0)} quantity={quantities[0]} onMinus={()=>onMinus(0)} onAdd={()=>onAdd(0)}/>
-    const strawberry_demo2 = <CartItem key="1" name="Rural Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(1)} quantity={quantities[1]} onMinus={()=>onMinus(1)} onAdd={()=>onAdd(1)}/>
-    const strawberry_demo3 = <CartItem key="2" name="Natural Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(2)} quantity={quantities[2]} onMinus={()=>onMinus(2)} onAdd={()=>onAdd(2)}/>
+    const strawberry_demo = <CartItem key="0" serial="123456" name="Organic Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(0)} quantity={quantities[0]} onMinus={()=>onMinus(0)} onAdd={()=>onAdd(0)}/>
+    const strawberry_demo2 = <CartItem key="1" serial="234567" name="Rural Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(1)} quantity={quantities[1]} onMinus={()=>onMinus(1)} onAdd={()=>onAdd(1)}/>
+    const strawberry_demo3 = <CartItem key="2" serial="232323" name="Natural Strawberries" image={strawberry_unsplash} serving="1.5lb" price="2.25" onDelete={() => deleteItem(2)} quantity={quantities[2]} onMinus={()=>onMinus(2)} onAdd={()=>onAdd(2)}/>
 
     var ALL_ITEMS = [strawberry_demo, strawberry_demo2, strawberry_demo3]; // global list that contains info on all items
 
@@ -23,6 +23,7 @@ function CartList() {
     }
 
     const [totalPrice, setTotalPrice] = useState(TOTAL);
+    const total_taxed = totalPrice * 1.06;
 
     console.log(quantities);
 
@@ -100,16 +101,17 @@ function CartList() {
     return <>
     <div className='container cartItem'>
         <div className='row justify-content-between'>
-            <h2 className='col-5'>My Cart</h2>
+            <h2 id="MyCart" className='col-5'>My Cart</h2>
             <div className='col-5'></div>
             <div className='col-2 text-center'>
-            <Button variant="light">Select</Button>
             </div>
         </div>
         {output}
         <div className='row justify-content-between'>
             <h2 className='col text-center mh-4'>Subtotal</h2>
             <p className='col text-center mh-4'>{totalPrice}</p>
+            <h2 className='col text-center mh-4'>Total</h2>
+            <p className='col text-center mh-4'>{total_taxed}</p>
         </div>
     </div>
     </>

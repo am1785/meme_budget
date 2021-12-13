@@ -6,6 +6,9 @@ import Navigator from './Navigator';
 import {Helmet} from "react-helmet";
 import Progress from './ProgressBar';
 import CartList from './CartList';
+import Memes from './Memes';
+import Scan from './Scan';
+import Summary from './Summary';
 
 ReactDOM.render(<>
   <header>
@@ -17,7 +20,10 @@ ReactDOM.render(<>
   <main>
     <Navigator />
     <Progress price="15" budget="20"/>
+    <Memes />
+    <Scan />
     <CartList />
+    <Summary />
   </main>
 </>, document.getElementById('root')
 );
