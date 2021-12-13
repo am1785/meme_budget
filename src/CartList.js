@@ -23,7 +23,7 @@ function CartList() {
     }
 
     const [totalPrice, setTotalPrice] = useState(TOTAL);
-    const total_taxed = totalPrice * 1.06;
+    var total_taxed = totalPrice * 1.06;
 
     console.log(quantities);
 

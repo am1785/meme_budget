@@ -19,7 +19,7 @@ ReactDOM.render(<>
   </header>
   <main>
     <Navigator />
-    <Progress price="15" budget="20"/>
+    <Progress price="10" budget="20"/>
     <Memes />
     <Scan />
     <CartList />
