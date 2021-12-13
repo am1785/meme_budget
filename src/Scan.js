@@ -4,39 +4,18 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button  from 'react-bootstrap/Button';
 import Webcam from "react-webcam";
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from 'react-dom';
 
 function Scan () {
     const WebcamComponent = () => <Webcam />;
+    const [camEnabled, setCamEnabled] = useState(false);
 
-    const WebcamCapture = () => {
-        const webcamRef = React.useRef(null);
-        const [imgSrc, setImgSrc] = React.useState(null);
-      
-        const capture = React.useCallback(() => {
-          const imageSrc = webcamRef.current.getScreenshot();
-          setImgSrc(imageSrc);
-        }, [webcamRef, setImgSrc]);
-      
-        return (
-          <>
-            <Webcam
-              audio={false}
-              ref={webcamRef}
-              screenshotFormat="image/jpeg"
-            />
-            <button onClick={capture}>Capture photo</button>
-            {imgSrc && (
-              <img
-                src={imgSrc}
-              />
-            )}
-          </>
-        );
-      };
-      
-      ReactDOM.render(<WebcamCapture />, document.getElementById("useWebcam"));
+    function enableCam(){
+      setCamEnabled(enabled => !enabled);
+    }
+
+      // ReactDOM.render(<WebcamCapture />, document.getElementById("useWebcam"));
 
     return <>
     <div className='container cartItem'>
@@ -61,7 +40,12 @@ function Scan () {
         </div>
         </div>
         <div id="useWebcam"></div>
-        <BiScan onClick={() =>ReactDOM.render(<Webcam />)} id="ScanIcon"/>
+        {camEnabled ? (<>
+          <div className='container'>
+          <div className='row justify-content-evenly align-items-center'>
+          <Webcam className="col-12"/>
+          <div className='col-12 mt-2 text-center'><Button onClick={enableCam} variant="outline-secondary" id="button-addon2">Cancel</Button>
+          </div></div></div></>) : <BiScan onClick={() =>enableCam()} id="ScanIcon"/>}
         </div>
     </div>
     </>
